@@ -222,3 +222,59 @@
   align-items: center;
   gap: 8px;
 }
+
+.copilotMessage {
+  color: #eefcf4;
+}
+
+.copilotMessage :global(.fui-CopilotMessage) {
+  color: #eefcf4;
+}
+
+.copilotMessage :global(.fui-CopilotMessage__content) {
+  color: #eefcf4;
+}
+
+.copilotMessage :global(p),
+.copilotMessage :global(li),
+.copilotMessage :global(h1),
+.copilotMessage :global(h2),
+.copilotMessage :global(h3),
+.copilotMessage :global(h4),
+.copilotMessage :global(strong),
+.copilotMessage :global(span) {
+  color: inherit;
+}
+
+.copilotMessage :global(a) {
+  color: #44e99a;
+}
+
+.copilotMessage :global(code) {
+  color: #baffd8;
+  background: rgba(26, 96, 68, 0.25);
+}
+
+.citation {
+  background: rgba(9, 30, 24, 0.94);
+  border-color: rgba(48, 218, 137, 0.28);
+  color: #edfdf4;
+}
+
+.citationNumber {
+  background: rgba(22, 76, 55, 0.5);
+  border-right-color: rgba(48, 218, 137, 0.22);
+  color: #8fffc0;
+}
+
+.citationLabel,
+.citationIcon,
+.citationExternalIcon {
+  color: #dff7e9;
+}
+
+.timestamp,
+.retryingState,
+.toolUseIndicator {
+  color: rgba(220, 236, 227, 0.58);
+}

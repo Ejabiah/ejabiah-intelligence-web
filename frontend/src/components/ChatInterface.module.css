@@ -16,7 +16,16 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 2rem 1.5rem;
-  background-color: var(--colorNeutralBackground1);
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(16, 104, 66, 0.12),
+      transparent 38%
+    ),
+    #020906;
+
+  color: #f4fff9;
   position: relative;
   min-height: 0;
   width: 100%;
@@ -91,7 +100,16 @@
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  background: var(--colorNeutralBackground1);
+
+  padding: 14px 0 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2, 9, 6, 0),
+      rgba(2, 9, 6, 0.96) 35%
+    );
+
   display: flex;
   flex-direction: column;
   align-items: center;

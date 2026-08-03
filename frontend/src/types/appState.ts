@@ -84,6 +84,7 @@ export type AppAction =
   | { type: 'CHAT_STREAM_RETRY'; messageId: string; attempt: number; maxRetries: number }
   | { type: 'CHAT_RECOVER_MESSAGE'; messageText: string; error: AppError; retryCount: number }
   | { type: 'CHAT_CONSUMED_RECOVERED_INPUT' }
+  | { type: 'CHAT_SET_RECOVERED_INPUT'; text: string }
   | { type: 'CHAT_QUEUE_MESSAGE'; text: string; files?: File[] }
   | { type: 'CHAT_DEQUEUE_MESSAGE'; index: number }
   | { type: 'CHAT_CLEAR_QUEUE' }

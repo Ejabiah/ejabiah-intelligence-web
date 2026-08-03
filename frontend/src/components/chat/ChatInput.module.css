@@ -1,68 +1,93 @@
 .chatInputContainer {
-  padding: 1rem;
-  background: transparent;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
+  padding: 1rem;
   flex-shrink: 0;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .inputWrapper {
   position: relative;
   width: 100%;
-  border-radius: 8px;
-  background: var(--colorNeutralBackground1);
-  border: 1px solid var(--colorNeutralStroke1);
-  box-shadow: var(--shadow4);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(8, 25, 29, 0.98),
+      rgba(3, 13, 16, 0.98)
+    );
+
+  border: 1px solid rgba(45, 225, 139, 0.62);
+
+  box-shadow:
+    0 0 0 5px rgba(26, 201, 116, 0.035),
+    0 0 24px rgba(20, 190, 108, 0.12);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .inputWrapper:focus-within {
-  border-color: var(--colorBrandStroke1);
-  box-shadow: var(--shadow8);
+  border-color: #37e893;
+
+  box-shadow:
+    0 0 0 5px rgba(26, 201, 116, 0.06),
+    0 0 30px rgba(20, 210, 120, 0.18);
 }
 
 .inputWrapper :global(.fui-ChatInput) {
-  max-height: 120px;
   width: 100%;
-  background: transparent;
+  max-height: 150px;
   border: none;
-  border-radius: 8px;
-}
-
-.inputWrapper :global(.fui-ChatInput) :global(textarea) {
-  background: transparent;
-  min-height: 40px;
-}
-
-.inputWrapper :global(.fui-ChatInput) :global(.fui-ChatInput__container) {
-  background: transparent;
-}
-
-/* Style the built-in send button to match our subtle buttons */
-.inputWrapper :global(.fui-ChatInput) :global(button) {
-  color: var(--colorNeutralForeground2);
+  border-radius: 18px;
   background: transparent !important;
-  border: none;
+  color: #f4fff9;
 }
 
-.inputWrapper :global(.fui-ChatInput) :global(button:hover:enabled) {
-  color: var(--colorNeutralForeground2Hover);
-  background: var(--colorSubtleBackgroundHover) !important;
+.inputWrapper :global(.fui-ChatInput__container) {
+  background: transparent !important;
+  color: #f4fff9;
 }
 
-.inputWrapper :global(.fui-ChatInput) :global(button:active:enabled) {
-  color: var(--colorNeutralForeground2Pressed);
-  background: var(--colorSubtleBackgroundPressed) !important;
+.inputWrapper :global(textarea) {
+  min-height: 56px;
+  padding: 16px 18px;
+  background: transparent !important;
+  color: #f4fff9 !important;
+  caret-color: #37e893;
+  font-size: 15px;
 }
 
-.inputWrapper :global(.fui-ChatInput) :global(button:disabled) {
-  color: var(--colorNeutralForegroundDisabled);
+.inputWrapper :global(textarea::placeholder) {
+  color: rgba(220, 236, 227, 0.55) !important;
+}
+
+.inputWrapper :global(button) {
+  color: rgba(216, 236, 225, 0.76) !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.inputWrapper :global(button:hover:enabled) {
+  color: #47f0a0 !important;
+  background: rgba(34, 214, 130, 0.09) !important;
+}
+
+.inputWrapper :global(button:active:enabled) {
+  color: #7affba !important;
+  background: rgba(34, 214, 130, 0.14) !important;
+}
+
+.inputWrapper :global(button:disabled) {
+  color: rgba(190, 205, 197, 0.3) !important;
   background: transparent !important;
   cursor: not-allowed;
-  opacity: 0.4;
+  opacity: 0.45;
 }
 
 .attachmentsPreview {
@@ -70,37 +95,40 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
-  padding: 0.75rem;
-  padding-bottom: 0.25rem;
+  padding: 0.75rem 0.75rem 0.25rem;
 }
 
 .attachmentItem {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
   padding: 0.5rem 0.75rem;
-  background: var(--colorNeutralBackground2);
-  border: 1px solid var(--colorNeutralStroke1);
-  border-radius: 4px;
+
+  background: rgba(12, 38, 31, 0.9);
+  border: 1px solid rgba(46, 216, 135, 0.28);
+  border-radius: 8px;
+
+  color: #e9fff4;
   font-size: 0.875rem;
-  transition: background 0.2s ease;
 }
 
 .attachmentItem:hover {
-  background: var(--colorNeutralBackground3);
+  background: rgba(17, 51, 41, 0.95);
 }
 
 .attachmentName {
-  font-weight: 500;
-  color: var(--colorNeutralForeground1);
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  color: #f4fff9;
+  font-weight: 500;
 }
 
 .attachmentSize {
-  color: var(--colorNeutralForeground3);
+  color: rgba(220, 236, 227, 0.58);
   font-size: 0.75rem;
 }
 
@@ -108,9 +136,11 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0.5rem 0.75rem;
-  border-top: 1px solid var(--colorNeutralStroke2);
   gap: 0.5rem;
+
+  padding: 0.5rem 0.75rem;
+
+  border-top: 1px solid rgba(46, 216, 135, 0.17);
 }
 
 .actionButtons {
@@ -122,8 +152,8 @@
 .divider {
   width: 1px;
   height: 20px;
-  background-color: var(--colorNeutralStroke2);
   flex-shrink: 0;
+  background: rgba(46, 216, 135, 0.2);
 }
 
 .cancelButton {

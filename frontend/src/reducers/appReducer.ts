@@ -381,6 +381,16 @@ export const appReducer = (state: AppState, action: AppAction): AppState => {
       };
     }
 
+    case 'CHAT_SET_RECOVERED_INPUT':
+  return {
+    ...state,
+    chat: {
+      ...state.chat,
+      recoveredInput: action.text,
+      recoveredAttachments: undefined,
+    },
+  };
+
     case 'CHAT_CONSUMED_RECOVERED_INPUT':
       return {
         ...state,

@@ -14,3 +14,15 @@
   position: relative;
   overflow: hidden;
 }
+
+.container,
+.content,
+.mainContent {
+  background: #020906;
+  color: #f4fff9;
+}
+
+.content {
+  min-height: 0;
+  overflow: hidden;
+}

@@ -20,9 +20,9 @@ interface IStarterMessageProps {
 
 // Default starter prompts when none are configured in Microsoft Foundry
 const defaultStarterPrompts = [
-  "How can you help me?",
-  "What are your capabilities?",
-  "Tell me about yourself",
+  "Company Policies",
+  "Ask About Procedures",
+  "IT & Technical Support",
 ];
 
 export const StarterMessages = ({
@@ -32,11 +32,16 @@ export const StarterMessages = ({
   starterPrompts,
   onPromptClick,
 }: IStarterMessageProps): ReactNode => {
-  // Use agent-provided prompts or fall back to defaults
-  const prompts = starterPrompts && starterPrompts.length > 0 
-    ? starterPrompts 
-    : defaultStarterPrompts;
+  if (Array.isArray(starterPrompts) && starterPrompts.length === 0) {
+    return null;
+  }
 
+  const prompts =
+    starterPrompts && starterPrompts.length > 0
+      ? starterPrompts
+      : defaultStarterPrompts;
+
+  
   return (
     <div className={styles.zeroprompt}>
       <div className={styles.content}>
@@ -46,7 +51,7 @@ export const StarterMessages = ({
           logoUrl={agentLogo}
         />
         <Subtitle1 className={styles.welcome}>
-          {agentName ? `Hello! I'm ${agentName}` : "Hello! How can I help you today?"}
+          {agentName ? `Welcome to ${agentName}` : "Hello! How can I help you today?"}
         </Subtitle1>
         {agentDescription && (
           <Body1 className={styles.caption}>{agentDescription}</Body1>

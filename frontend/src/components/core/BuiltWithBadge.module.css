@@ -1,32 +1,39 @@
 .badge {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  height: auto;
+  justify-content: center;
+
+  gap: 2px;
+
+  width: 100%;
+
+  padding: 8px 0 12px;
+
   border: none;
   background: transparent;
-  cursor: pointer;
-  padding: 0;
+
+  cursor: default;
+  user-select: none;
 }
 
 .logo {
-  display: grid;
-  place-items: center;
-  color: var(--colorBrandForeground1);
-  margin-right: 2px;
-}
-
-.text {
-  color: var(--colorNeutralForeground3);
+  display: none;
 }
 
 .brand {
-  color: var(--colorNeutralForeground1);
+  font-size: 14px;
+  font-weight: 700;
+  color: #0BA37A;
+  letter-spacing: 0.4px;
 }
 
-.badge:hover {
-  & .text,
-  & .brand {
-    text-decoration: underline;
-  }
+.text {
+  font-size: 12px;
+  color: var(--colorNeutralForeground3);
+}
+
+.badge:hover .brand,
+.badge:hover .text {
+  text-decoration: none;
 }

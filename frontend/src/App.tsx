@@ -9,6 +9,9 @@ import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "./hooks/useAuth";
 import type { IAgentMetadata } from "./types/chat";
 import "./App.css";
+import { EjabiahShell } from "./components/ejabiah/EjabiahShell";
+import { useAppContext } from "./contexts/AppContext";
+
 
 function App() {
   // This hook handles authentication automatically - redirects if not authenticated
@@ -17,6 +20,7 @@ function App() {
   const { getAccessToken } = useAuth();
   const [agentMetadata, setAgentMetadata] = useState<IAgentMetadata | null>(null);
   const [isLoadingAgent, setIsLoadingAgent] = useState(true);
+  const { dispatch } = useAppContext();
 
   // Wrap fetchAgentMetadata in useCallback to make it stable for the effect
   const fetchAgentMetadata = useCallback(async () => {
@@ -41,7 +45,7 @@ function App() {
       setAgentMetadata(data);
       
       // Update document title with agent name
-      document.title = data.name ? `${data.name} - Azure AI Agent` : 'Azure AI Agent';
+      document.title = data.name ? `${data.name} - Ejabiah AI` : 'Ejabiah AI';
     } catch (error) {
       console.error('Error fetching agent metadata:', error);
       // Fallback data keeps UI functional on error
@@ -49,12 +53,12 @@ function App() {
         id: 'fallback-agent',
         object: 'agent',
         createdAt: Date.now() / 1000,
-        name: 'Azure AI Agent',
-        description: 'Your intelligent conversational partner powered by Azure AI',
+        name: 'Ejabiah AI',
+        description: 'Secure Enterprise AI Assistant',
         model: 'gpt-4o-mini',
         metadata: { logo: 'Avatar_Default.svg' }
       });
-      document.title = 'Azure AI Agent';
+      document.title = 'Ejabiah AI';
     } finally {
       setIsLoadingAgent(false);
     }
@@ -82,19 +86,38 @@ function App() {
         </div>
       ) : (
         <>
-          <AuthenticatedTemplate>
-            {agentMetadata && (
-              <div className="app-container">
-                <AgentChat 
-                  agentId={agentMetadata.id}
-                  agentName={agentMetadata.name}
-                  agentDescription={agentMetadata.description || undefined}
-                  agentLogo={agentMetadata.metadata?.logo}
-                  starterPrompts={agentMetadata.starterPrompts || undefined}
-                />
-              </div>
-            )}
-          </AuthenticatedTemplate>
+ <AuthenticatedTemplate>
+  {agentMetadata && (
+    <EjabiahShell
+  userName="Adil AlAmmari"
+  userRole="IT Manager"
+  notificationCount={3}
+  isConversationActive={false}
+
+  onNewChat={() => {
+    dispatch({ type: 'CHAT_CLEAR' });
+    dispatch({ type: 'CHAT_CLEAR_ERROR' });
+  }}
+
+onQuickAction={(prompt) => {
+  dispatch({ type: 'CHAT_CLEAR_ERROR' });
+
+  dispatch({
+    type: 'CHAT_SET_RECOVERED_INPUT',
+    text: prompt,
+  });
+}}
+>
+  <AgentChat
+    agentId={agentMetadata.id}
+    agentName="Ejabiah AI"
+    agentDescription="Secure Enterprise AI Assistant"
+    agentLogo="/images/Ejabiah_Mark.png"
+    starterPrompts={[]}
+  />
+</EjabiahShell>
+  )}
+</AuthenticatedTemplate>
           <UnauthenticatedTemplate>
             <div className="app-container" style={{ 
               display: 'flex', 
