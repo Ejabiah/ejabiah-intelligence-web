@@ -45,7 +45,7 @@ function App() {
       setAgentMetadata(data);
       
       // Update document title with agent name
-      document.title = data.name ? `${data.name} - Ejabiah AI` : 'Ejabiah AI';
+      document.title = 'Ejabiah AI';
     } catch (error) {
       console.error('Error fetching agent metadata:', error);
       // Fallback data keeps UI functional on error
@@ -112,7 +112,7 @@ onQuickAction={(prompt) => {
     agentId={agentMetadata.id}
     agentName="Ejabiah AI"
     agentDescription="Secure Enterprise AI Assistant"
-    agentLogo="/images/Ejabiah_Mark.png"
+    agentLogo="/images/Ejabiah_Mark-White_Gradient.png"
     starterPrompts={[]}
   />
 </EjabiahShell>

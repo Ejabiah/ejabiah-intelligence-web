@@ -31,10 +31,10 @@ export const ejabiahTheme: Theme = {
   colorBrandBackground: '#00D27A',
   colorBrandBackgroundHover: '#13B36B',
   colorBrandBackgroundPressed: '#0F8F58',
-  colorBrandForeground1: '#00D27A',
+  colorBrandForeground1: '#006838',
   colorBrandForeground2: '#13B36B',
   colorBrandStroke1: '#00D27A',
-  colorBrandStroke2: '#13B36B',
+  colorBrandStroke2: '#006838',
 
   colorNeutralBackground1: '#071018',
   colorNeutralBackground1Hover: '#0B1721',
