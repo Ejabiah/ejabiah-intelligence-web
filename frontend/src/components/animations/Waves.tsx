@@ -46,14 +46,14 @@ export const Waves: React.FC<WavesProps> = ({ paused = false }) => {
       if (currentTheme === 'Dark') {
         return [
           '#0068370e',
-          '#0068371e',
-          '#00683728',
+          '#0068370c',
+          '#0068371c',
         ];
       }
       return [
-         '#00683728',
-          '#0068371e',
-         '#0068370e',
+        '#0068371c',
+          '#0068370c',
+          '#0068370e',
       ];
     };
 
