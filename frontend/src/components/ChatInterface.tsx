@@ -2,7 +2,6 @@ import { useRef, useEffect, useState, useDeferredValue, useCallback } from "reac
 import { AssistantMessage } from "./chat/AssistantMessage";
 import { UserMessage } from "./chat/UserMessage";
 import { McpApprovalCard } from "./chat/McpApprovalCard";
-import { StarterMessages } from "./chat/StarterMessages";
 import { ChatInput } from "./chat/ChatInput";
 import { DropZone } from "./chat/DropZone";
 import { Waves } from "./animations/Waves";
@@ -48,7 +47,7 @@ interface ChatInterfaceProps {
 }
 
 export const ChatInterface: React.FC<ChatInterfaceProps> = (props) => {
-  const { messages, status, error, streamingMessageId, recoveredInput, recoveredAttachments, pendingMessages, onSendMessage, onMcpApproval, onClearError, onRecoveredInputConsumed, onDequeueMessage, onOpenSettings, onNewChat, onCancelStream, onToggleSidebar, onExportConversation, onRegenerate, onEditMessage, onCancelEdit, isEditing, onFeedback, onDownloadFile, hasMessages, disabled, agentName, agentDescription, agentLogo, starterPrompts, conversationId } = props;
+  const { messages, status, error, streamingMessageId, recoveredInput, recoveredAttachments, pendingMessages, onSendMessage, onMcpApproval, onClearError, onRecoveredInputConsumed, onDequeueMessage, onOpenSettings, onNewChat, onCancelStream, onToggleSidebar, onExportConversation, onRegenerate, onEditMessage, onCancelEdit, isEditing, onFeedback, onDownloadFile, hasMessages, disabled, agentName, agentLogo, conversationId } = props;
   const deferredMessages = useDeferredValue(messages);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [liveRegionMessage, setLiveRegionMessage] = useState<string>('');
@@ -62,6 +61,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = (props) => {
   
   const isStreaming = status === 'streaming';
   const isBusy = disabled || status === 'sending';
+  const hasConversation = messages.length > 0 || Boolean(hasMessages);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -111,10 +111,6 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = (props) => {
   const handleSendMessage = (messageText: string, files?: File[]) => {
     if (!messageText.trim() || disabled) return;
     onSendMessage(messageText, files);
-  };
-
-  const handleStarterPromptClick = (prompt: string) => {
-    handleSendMessage(prompt);
   };
 
   // Drag-drop handlers
@@ -196,13 +192,34 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = (props) => {
       >
         <div className={styles.messagesWrapper}>
           {messages.length === 0 ? (
-            <StarterMessages 
-              agentName={agentName}
-              agentDescription={agentDescription}
-              agentLogo={agentLogo}
-              starterPrompts={starterPrompts}
-              onPromptClick={handleStarterPromptClick}
-            />
+            <div className={styles.emptyState}>
+              <div className={styles.emptyStateCard}>
+                <div className={styles.emptyIcon}>
+                  <img src="/images/ai_logo.png" alt="Ejabiah AI" />
+                </div>
+                <h2 className={styles.emptyTitle}>Start your enterprise conversation</h2>
+                <p className={styles.emptyDescription}>
+                  Ask grounded questions, review policy guidance, and get secure support from Ejabiah AI.
+                </p>
+                <div className={styles.quickPromptGrid}>
+                  {[
+                    { title: 'Policy lookup', text: 'Show me the latest company policy updates.' },
+                    { title: 'Process help', text: 'Walk me through the approval workflow.' },
+                    { title: 'Support request', text: 'Help me troubleshoot an access issue.' },
+                  ].map((prompt) => (
+                    <button
+                      key={prompt.title}
+                      type="button"
+                      className={styles.quickPromptCard}
+                      onClick={() => handleSendMessage(prompt.text)}
+                    >
+                      <strong>{prompt.title}</strong>
+                      <span>{prompt.text}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
           ) : (
             <>
               <div aria-live="polite" aria-atomic="false" className="sr-only">
@@ -295,7 +312,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = (props) => {
           </div>
         )}
 
-        <Waves />
+        {!hasConversation && <Waves />}
         <ChatInput
           onSubmit={handleSendMessage}
           disabled={isBusy}
@@ -303,7 +320,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = (props) => {
           onNewChat={onNewChat}
           onToggleSidebar={onToggleSidebar}
           hasMessages={hasMessages}
-          placeholder="Type your message here..."
+          placeholder="Ask Ejabiah AI anything..."
           isStreaming={isStreaming}
           onCancelStream={isStreaming && onCancelStream ? onCancelStream : undefined}
           isEditing={isEditing}
@@ -318,7 +335,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = (props) => {
           droppedFiles={droppedFiles}
           onDroppedFilesConsumed={handleDroppedFilesConsumed}
         />
-        <BuiltWithBadge className={styles.builtWithBadge} />
+        {!hasConversation && <BuiltWithBadge className={styles.builtWithBadge} />}
       </div>
     </div>
   );

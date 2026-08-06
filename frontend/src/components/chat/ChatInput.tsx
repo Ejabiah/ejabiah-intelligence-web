@@ -4,8 +4,8 @@ import {
   ImperativeControlPlugin,
   type ImperativeControlPluginRef,
 } from '@fluentui-copilot/react-copilot';
-import { Button, Toast, ToastTitle, Toaster, useId, useToastController, Text, makeStyles, tokens, Menu, MenuTrigger, MenuPopover, MenuList, MenuItem } from '@fluentui/react-components';
-import { Attach24Regular, Stop24Regular, MoreHorizontal24Regular, History24Regular, Settings24Regular, ChatAdd24Regular, ArrowDownload24Regular, Keyboard24Regular } from '@fluentui/react-icons';
+import { Toast, ToastTitle, Toaster, useId, useToastController, Text, makeStyles, tokens, Menu, MenuTrigger, MenuPopover, MenuList, MenuItem } from '@fluentui/react-components';
+import { Attach24Regular, Stop24Regular, MoreHorizontal24Regular, History24Regular, Settings24Regular, ChatAdd24Regular, ArrowDownload24Regular, Keyboard24Regular, Image24Regular, Send24Regular, Sparkle24Regular } from '@fluentui/react-icons';
 import { FilePreview } from './FilePreview';
 import { VoiceInput } from './VoiceInput';
 import { MessageQueue } from './MessageQueue';
@@ -348,92 +348,131 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           disabled={disabled}
         />
         <div className={styles.inputWrapper}>
-        <ChatInputFluent
-          aria-label="Chat Input"
-          aria-describedby={showCounter ? charCounterId : undefined}
-          charactersRemainingMessage={() => ``}
-          disabled={disabled}
-          history={true}
-          onChange={(_, data) => setInputText(data.value)}
-          onSubmit={handleSubmit}
-          placeholderValue={placeholder}
-        >
-          <ImperativeControlPlugin ref={controlRef} />
-        </ChatInputFluent>
-        {showCounter && (
-          <div className={counterStyles.container} id={charCounterId}>
-            <Text className={`${counterStyles.text} ${getCounterStyle()}`}>
-              {charCount} / {CHAR_MAX_RECOMMENDED} characters (recommended limit)
-            </Text>
-          </div>
-        )}
-        {pendingMessages.length > 0 && onDequeueMessage && (
-          <MessageQueue messages={pendingMessages} onRemove={onDequeueMessage} />
-        )}
-        <div className={styles.buttonRow}>
-          <div className={styles.actionButtons}>
-            <Button
-              appearance="subtle"
-              icon={<Attach24Regular />}
-              onClick={handleAttachClick}
+          <div className={styles.inputSurface}>
+            <div className={styles.inputSurfaceHeader}>
+              <span className={styles.inputBadge}>
+                <Sparkle24Regular />
+                Ejabiah AI
+              </span>
+              <span className={styles.inputHint}>Enterprise-ready answers</span>
+            </div>
+            <ChatInputFluent
+              aria-label="Chat Input"
+              aria-describedby={showCounter ? charCounterId : undefined}
+              charactersRemainingMessage={() => ``}
               disabled={disabled}
-              aria-label="Attach files"
-            />
-            <Button
-              appearance="subtle"
-              icon={<Stop24Regular />}
-              onClick={isEditing ? onCancelEdit : handleCancelStream}
-              disabled={!isStreaming && !isEditing}
-              aria-label={isEditing ? "Cancel edit" : "Cancel response"}
-              title={isEditing ? "Cancel edit" : undefined}
-              className={styles.cancelButton}
-            />
-            <VoiceInput
-              onTranscript={handleVoiceTranscript}
-              disabled={disabled}
-            />
-            {onNewChat && (
-              <Button
-                appearance="subtle"
-                icon={<ChatAdd24Regular />}
-                onClick={onNewChat}
-                disabled={disabled || !hasMessages}
-                aria-label="New chat"
-              />
+              history={true}
+              onChange={(_, data) => setInputText(data.value)}
+              onSubmit={handleSubmit}
+              placeholderValue={placeholder}
+            >
+              <ImperativeControlPlugin ref={controlRef} />
+            </ChatInputFluent>
+            {showCounter && (
+              <div className={counterStyles.container} id={charCounterId}>
+                <Text className={`${counterStyles.text} ${getCounterStyle()}`}>
+                  {charCount} / {CHAR_MAX_RECOMMENDED} characters (recommended limit)
+                </Text>
+              </div>
             )}
-            <Menu>
-              <MenuTrigger disableButtonEnhancement>
-                <Button
-                  appearance="subtle"
-                  icon={<MoreHorizontal24Regular />}
-                  aria-label="More options"
+          </div>
+          {pendingMessages.length > 0 && onDequeueMessage && (
+            <MessageQueue messages={pendingMessages} onRemove={onDequeueMessage} />
+          )}
+          <div className={styles.toolbar}>
+            <div className={styles.toolbarGroup}>
+              {onNewChat && (
+                <button
+                  type="button"
+                  className={styles.toolbarButton}
+                  onClick={onNewChat}
+                  disabled={disabled || !hasMessages}
+                  aria-label="New chat"
+                >
+                  <ChatAdd24Regular />
+                </button>
+              )}
+              <button
+                type="button"
+                className={styles.toolbarButton}
+                onClick={handleAttachClick}
+                disabled={disabled}
+                aria-label="Attach files"
+              >
+                <Attach24Regular />
+              </button>
+              <button
+                type="button"
+                className={styles.toolbarButton}
+                onClick={handleAttachClick}
+                disabled={disabled}
+                aria-label="Add image"
+              >
+                <Image24Regular />
+              </button>
+              <div className={styles.voiceButton}>
+                <VoiceInput
+                  onTranscript={handleVoiceTranscript}
+                  disabled={disabled}
                 />
-              </MenuTrigger>
-              <MenuPopover>
-                <MenuList>
-                  {onToggleSidebar && (
-                    <MenuItem icon={<History24Regular />} onClick={onToggleSidebar} disabled={disabled}>
-                      Conversation history
-                    </MenuItem>
-                  )}
-                  {onExportConversation && (
-                    <MenuItem icon={<ArrowDownload24Regular />} onClick={onExportConversation} disabled={disabled || !hasMessages}>
-                      Export as Markdown
-                    </MenuItem>
-                  )}
-                  {onShowShortcuts && (
-                    <MenuItem icon={<Keyboard24Regular />} onClick={onShowShortcuts}>
-                      Keyboard shortcuts
-                    </MenuItem>
-                  )}
-                  {onOpenSettings && (
-                    <MenuItem icon={<Settings24Regular />} onClick={onOpenSettings} disabled={disabled}>
-                      Settings
-                    </MenuItem>
-                  )}
-                </MenuList>
-              </MenuPopover>
-            </Menu>
+              </div>
+              {isStreaming || isEditing ? (
+                <button
+                  type="button"
+                  className={styles.toolbarButton}
+                  onClick={isEditing ? onCancelEdit : handleCancelStream}
+                  disabled={!isStreaming && !isEditing}
+                  aria-label={isEditing ? "Cancel edit" : "Cancel response"}
+                  title={isEditing ? "Cancel edit" : undefined}
+                >
+                  <Stop24Regular />
+                </button>
+              ) : null}
+              <Menu>
+                <MenuTrigger disableButtonEnhancement>
+                  <button
+                    type="button"
+                    className={styles.toolbarButton}
+                    aria-label="More options"
+                  >
+                    <MoreHorizontal24Regular />
+                  </button>
+                </MenuTrigger>
+                <MenuPopover>
+                  <MenuList>
+                    {onToggleSidebar && (
+                      <MenuItem icon={<History24Regular />} onClick={onToggleSidebar} disabled={disabled}>
+                        Conversation history
+                      </MenuItem>
+                    )}
+                    {onExportConversation && (
+                      <MenuItem icon={<ArrowDownload24Regular />} onClick={onExportConversation} disabled={disabled || !hasMessages}>
+                        Export as Markdown
+                      </MenuItem>
+                    )}
+                    {onShowShortcuts && (
+                      <MenuItem icon={<Keyboard24Regular />} onClick={onShowShortcuts}>
+                        Keyboard shortcuts
+                      </MenuItem>
+                    )}
+                    {onOpenSettings && (
+                      <MenuItem icon={<Settings24Regular />} onClick={onOpenSettings} disabled={disabled}>
+                        Settings
+                      </MenuItem>
+                    )}
+                  </MenuList>
+                </MenuPopover>
+              </Menu>
+            </div>
+            <button
+              type="button"
+              className={styles.sendButton}
+              onClick={handleSubmit}
+              disabled={disabled || !inputText.trim()}
+              aria-label="Send message"
+            >
+              <Send24Regular />
+            </button>
           </div>
         </div>
       </div>
@@ -446,7 +485,6 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         accept="image/*,.pdf,.txt,.md,.csv,.json,.html,.xml"
         aria-label="Upload files"
       />
-    </div>
     </>
   );
 };

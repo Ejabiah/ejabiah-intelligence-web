@@ -1,9 +1,28 @@
 /* Reduce padding on user message to match Azure sample pattern */
 .userMessage {
-  padding-top: 0;
-  padding-bottom: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  max-width: min(74%, 720px);
+  padding: 0.9rem 1rem 0.85rem;
   gap: 2px;
-  animation: fadeIn 0.3s ease-in;
+  animation: fadeIn 0.25s ease-out both;
+  border-radius: 18px 18px 8px 18px;
+  background: linear-gradient(135deg, rgba(10, 65, 43, 0.84), rgba(4, 31, 22, 0.88));
+  border: 1px solid rgba(0, 210, 122, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 30px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #f7fff9;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  text-align: start;
+  unicode-bidi: plaintext;
+}
+
+.userMessage :global(p) {
+  margin: 0 0 0.65rem;
+  line-height: 1.7;
 }
 
 @keyframes fadeIn {
@@ -100,7 +119,10 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  gap: 4px;
+  gap: 8px;
+  width: 100%;
+  margin: 0.28rem 0 0.6rem;
+  padding-left: 2rem;
 }
 
 /* Edit button — small icon beside the message */
