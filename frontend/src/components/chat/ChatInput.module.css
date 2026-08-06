@@ -21,7 +21,7 @@
       rgba(3, 13, 16, 0.98)
     );
 
-  border: 1px solid rgba(45, 225, 139, 0.62);
+  border: 1px solid #006838;
 
   box-shadow:
     0 0 0 5px rgba(26, 201, 116, 0.035),
@@ -33,7 +33,7 @@
 }
 
 .inputWrapper:focus-within {
-  border-color: #37e893;
+  border-color: #006838;
 
   box-shadow:
     0 0 0 5px rgba(26, 201, 116, 0.06),
@@ -59,7 +59,7 @@
   padding: 16px 18px;
   background: transparent !important;
   color: #f4fff9 !important;
-  caret-color: #37e893;
+  caret-color: #006838;
   font-size: 15px;
 }
 
@@ -74,12 +74,12 @@
 }
 
 .inputWrapper :global(button:hover:enabled) {
-  color: #47f0a0 !important;
+  color: #006838 !important;
   background: rgba(34, 214, 130, 0.09) !important;
 }
 
 .inputWrapper :global(button:active:enabled) {
-  color: #7affba !important;
+  color: #006838 !important;
   background: rgba(34, 214, 130, 0.14) !important;
 }
 
@@ -105,11 +105,11 @@
 
   padding: 0.5rem 0.75rem;
 
-  background: rgba(12, 38, 31, 0.9);
-  border: 1px solid rgba(46, 216, 135, 0.28);
+  background: #006838;
+  border: 1px solid #006838;
   border-radius: 8px;
 
-  color: #e9fff4;
+  color: #006838;
   font-size: 0.875rem;
 }
 

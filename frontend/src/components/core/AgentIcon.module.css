@@ -1,0 +1,58 @@
+.agentAvatar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        180deg,
+        #0b2418,
+        #071018
+    );
+
+    border:0px solid rgba(243, 245, 244, 0.45);
+
+    box-shadow:
+        inset 0 0 0px rgba(247, 248, 248, 0.1),
+        0 0 20px rgba(250, 252, 251, 0.18);
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+    transition:.25s;
+}
+
+.agentAvatar:hover{
+    border-color:#f8faf9;
+
+    box-shadow:
+        inset 0 0 14px rgba(245, 247, 246, 0.15),
+        0 0 28px rgba(255, 255, 255, 0.3);
+}
+
+.agentAvatar img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.agentAvatar svg{
+    color:#f2f5f4;
+}
+
+.small{
+    width:32px;
+    height:32px;
+}
+
+.medium{
+    width:42px;
+    height:42px;
+}
+
+.large{
+    width:52px;
+    height:52px;
+}

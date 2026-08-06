@@ -90,23 +90,48 @@ const openChatWithPrompt = (prompt: string) => {
 
       <main className={styles.main}>
         <header className={styles.topbar}>
-          <div className={styles.profile}>
-            <div className={styles.avatar}>{initials}<span /></div>
-            <div><small>Welcome back,</small><strong>{userName}</strong><span>{userRole}</span></div>
-          </div>
-          <div className={styles.topActions}>
-            <button className={styles.iconButton} aria-label="Notifications"><Icon name="bell" />{notificationCount > 0 && <b>{notificationCount}</b>}</button>
-            <button className={styles.signOut} onClick={onSignOut}><Icon name="signOut" /><span>Sign out</span></button>
-          </div>
-        </header>
+  <div className={styles.profileCard}>
+    <div className={styles.profileAvatar}>
+      <span>{initials}</span>
+      <i aria-hidden="true" />
+    </div>
+
+    <div className={styles.profileDetails}>
+      <small>Welcome back,</small>
+      <strong>{userName}</strong>
+      <span>{userRole}</span>
+    </div>
+  </div>
+
+  <div className={styles.topActions}>
+    <button
+      className={styles.iconButton}
+      type="button"
+      aria-label="Notifications"
+    >
+      <Icon name="bell" />
+      {notificationCount > 0 && <b>{notificationCount}</b>}
+    </button>
+
+    <button
+      className={styles.signOut}
+      type="button"
+      onClick={onSignOut}
+    >
+      <Icon name="signOut" />
+      <span>Sign out</span>
+    </button>
+  </div>
+</header>
 
         {!showChat  && (
           <section className={styles.dashboard}>
             <div className={styles.hero}>
               <div className={styles.heroGlow} />
               <div className={styles.brand}>
-                <img src="/images/Ejabiah_Mark.png" alt="Ejabiah AI" />
-                <div><span className={styles.arabic}>الإيجابية</span><span className={styles.english}>EJABIAH</span></div>
+                <img src="/images/ai_logo.png" alt="Ejabiah AI" />
+                
+                <div><img src="/images/Ejabiah Short-White.png" alt="Ejabiah AI" /></div>
                 <i />
                 <b>AI</b>
               </div>
