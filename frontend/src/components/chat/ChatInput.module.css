@@ -1,6 +1,6 @@
 .chatInputContainer {
-  width: min(100%, 900px);
-  max-width: 900px;
+  width: min(100%, 1220px);
+  max-width: 1220px;
   margin: 0 auto 0.2rem;
   padding: 0.2rem 0.15rem 0.35rem;
   flex-shrink: 0;

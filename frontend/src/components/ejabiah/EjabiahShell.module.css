@@ -18,6 +18,7 @@
 }
 
 .shell {
+  --ej-content-max-width: 1220px;
   width: 100%;
   height: 100vh;
   min-height: 680px;
@@ -354,13 +355,15 @@
 .dashboard {
   flex: 1;
   overflow-y: auto;
-  padding: 26px 32px 24px;
+  padding: 26px 0 24px;
+  display: flex;
+  flex-direction: column;
   background: transparent;
 }
 
 .hero {
   position: relative;
-  width: min(100%, 1220px);
+  width: min(100%, var(--ej-content-max-width));
   height: 220px;
   margin: 0 auto;
   overflow: hidden;
@@ -483,7 +486,7 @@
 /* Cards */
 
 .cards {
-  width: min(100%, 1000px);
+  width: min(100%, var(--ej-content-max-width));
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -588,8 +591,8 @@
 /* Trust bar */
 
 .trust {
-  width: min(100%, 1000px);
-  margin: 16px auto 0;
+  width: min(100%, var(--ej-content-max-width));
+  margin: auto auto 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   overflow: hidden;
@@ -637,9 +640,9 @@
 /* Home prompt */
 
 .homeComposer {
-  width: min(100%, 1040px);
+  width: min(100%, var(--ej-content-max-width));
   min-height: 84px;
-  margin: 18px auto 0;
+  margin: 14px auto 0;
   padding: 9px 13px;
   display: flex;
   align-items: center;
