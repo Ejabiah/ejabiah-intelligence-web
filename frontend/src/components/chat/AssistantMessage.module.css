@@ -1,19 +1,27 @@
-.copilotMessage {
+.assistantCard {
+  width: 100%;
   display: flex;
-  margin: 0 0 0.5rem;
+  justify-content: center;
+  margin: 0 0 1.25rem;
+  animation: assistantCardIn 250ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.copilotMessage {
+  width: min(100%, 900px);
+  display: flex;
+  margin: 0;
   padding: 0;
-  animation: fadeIn 0.25s ease-out both;
   min-width: 0;
 }
 
-@keyframes fadeIn {
+@keyframes assistantCardIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(10px) scale(0.99);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -207,7 +215,7 @@
 .footnoteContainer {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
 }
 
@@ -215,6 +223,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .metadataLeft {
@@ -224,26 +234,123 @@
 }
 
 .copilotMessage {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(7, 28, 21, 0.42), rgba(2, 10, 8, 0.28));
+  border: 1px solid rgba(0, 210, 122, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 12px 30px rgba(0, 0, 0, 0.2), 0 0 24px rgba(0, 210, 122, 0.03);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 18px 21px;
+  overflow: hidden;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
   color: #eefcf4;
+}
+
+.copilotMessage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: linear-gradient(180deg, rgba(0, 255, 170, 0.95), rgba(0, 255, 170, 0.06));
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.16);
+  pointer-events: none;
+}
+
+.copilotMessage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 22%, rgba(255, 255, 255, 0.035) 0 1px, transparent 2px),
+    radial-gradient(circle at 30% 84%, rgba(255, 255, 255, 0.03) 0 1px, transparent 2px);
+  background-size: 220px 220px, 260px 260px, 240px 240px;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.assistantCard:hover .copilotMessage {
+  border-color: rgba(0, 210, 122, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 36px rgba(0, 0, 0, 0.24), 0 0 30px rgba(0, 210, 122, 0.06);
+}
+
+.copilotMessage > * {
+  position: relative;
+  z-index: 1;
 }
 
 .copilotMessage :global(.fui-CopilotMessage) {
+  position: relative;
   color: #eefcf4;
-  background: linear-gradient(135deg, rgba(3, 10, 9, 0.86), rgba(10, 20, 24, 0.72)) !important;
-  border: 1px solid rgba(0, 210, 122, 0.18) !important;
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 14px 34px rgba(0,0,0,0.22);
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none !important;
   padding: 0 !important;
-  max-width: 100% !important;
-  overflow: hidden;
+  max-width: min(100%, 900px) !important;
+}
+
+.copilotMessage :global(.fui-CopilotMessage)::before {
+  content: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: linear-gradient(180deg, rgba(0, 255, 170, 0.95), rgba(0, 255, 170, 0.06));
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.16);
+  pointer-events: none;
+}
+
+.copilotMessage :global(.fui-CopilotMessage)::after {
+  content: none;
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 22%, rgba(255, 255, 255, 0.035) 0 1px, transparent 2px),
+    radial-gradient(circle at 30% 84%, rgba(255, 255, 255, 0.03) 0 1px, transparent 2px);
+  background-size: 220px 220px, 260px 260px, 240px 240px;
+  opacity: 0.22;
+  pointer-events: none;
 }
 
 .copilotMessage :global(.fui-CopilotMessage__content) {
-  color: #eefcf4;
-  padding: 1rem 1.1rem 0.95rem;
+  color: #f8fffb;
+  padding: 10px 0 0;
   background: transparent;
+  line-height: 1.8;
+  font-size: 0.98rem;
+  letter-spacing: 0.003em;
+}
+
+.copilotMessage :global(p),
+.copilotMessage :global(li),
+.copilotMessage :global(h1),
+.copilotMessage :global(h2),
+.copilotMessage :global(h3),
+.copilotMessage :global(h4),
+.copilotMessage :global(strong),
+.copilotMessage :global(span) {
+  color: inherit;
+}
+
+.copilotMessage :global(p) {
+  margin: 0 0 0.85rem;
+  line-height: 1.8;
+}
+
+.copilotMessage :global(ul),
+.copilotMessage :global(ol) {
+  margin: 0.4rem 0 0.8rem 1.2rem;
+  padding: 0;
+  line-height: 1.8;
 }
 
 .copilotMessage :global(.fui-CopilotMessage__body) {
@@ -267,13 +374,13 @@
 }
 
 .copilotMessage :global(p) {
-  margin: 0 0 0.75rem;
-  line-height: 1.75;
+  margin: 0 0 0.8rem;
+  line-height: 1.8;
 }
 
 .copilotMessage :global(ul),
 .copilotMessage :global(ol) {
-  margin: 0.55rem 0 0.75rem 1.1rem;
+  margin: 0.4rem 0 0.8rem 1.2rem;
   padding: 0;
   line-height: 1.8;
 }
@@ -298,7 +405,8 @@
 }
 
 .copilotMessage :global(a) {
-  color: #44e99a;
+  color: #7ff9c7;
+  text-decoration-color: rgba(127, 249, 199, 0.4);
 }
 
 .copilotMessage :global(code) {
@@ -307,9 +415,10 @@
 }
 
 .citation {
-  background: rgba(9, 30, 24, 0.94);
-  border-color: rgba(48, 218, 137, 0.28);
+  background: rgba(8, 24, 18, 0.8);
+  border-color: rgba(48, 218, 137, 0.2);
   color: #edfdf4;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .citationNumber {

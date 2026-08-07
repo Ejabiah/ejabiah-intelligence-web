@@ -172,80 +172,82 @@ function AssistantMessageComponent({
   );
   
   return (
-    <CopilotMessage
-      id={`msg-${message.id}`}
-      avatar={<AgentIcon logoUrl={agentLogo} />}
-      name={agentName}
-      loadingState="none"
-      className={styles.copilotMessage}
-      disclaimer={<span>AI-generated content may be incorrect</span>}
-      footnote={
-        <div className={styles.footnoteContainer}>
-          {hasAnnotations && !isStreaming && (
-            <div className={styles.citationList}>
-              {citations}
-            </div>
-          )}
-          <div className={styles.metadataRow}>
-            <div className={styles.metadataLeft}>
-              {timestamp && <span className={styles.timestamp}>{timestamp}</span>}
-              {message.more?.usage && (
-                <UsageInfo 
-                  info={message.more.usage} 
-                  duration={message.duration} 
+    <div className={styles.assistantCard}>
+      <CopilotMessage
+        id={`msg-${message.id}`}
+        avatar={<AgentIcon logoUrl={agentLogo} />}
+        name={agentName}
+        loadingState="none"
+        className={styles.copilotMessage}
+        disclaimer={<span>AI-generated content may be incorrect</span>}
+        footnote={
+          <div className={styles.footnoteContainer}>
+            {hasAnnotations && !isStreaming && (
+              <div className={styles.citationList}>
+                {citations}
+              </div>
+            )}
+            <div className={styles.metadataRow}>
+              <div className={styles.metadataLeft}>
+                {timestamp && <span className={styles.timestamp}>{timestamp}</span>}
+                {message.more?.usage && (
+                  <UsageInfo 
+                    info={message.more.usage} 
+                    duration={message.duration} 
+                  />
+                )}
+              </div>
+              {!isStreaming && message.content && onRegenerate && (
+                <MessageActions
+                  content={message.content}
+                  onRegenerate={onRegenerate}
+                  onFeedback={handleFeedback}
                 />
               )}
             </div>
-            {!isStreaming && message.content && onRegenerate && (
-              <MessageActions
-                content={message.content}
-                onRegenerate={onRegenerate}
-                onFeedback={handleFeedback}
-              />
-            )}
           </div>
-        </div>
-      }
-    >
-      {showLoadingDots ? (
-        isStreaming && message.activeToolUse ? (
-          <div className={styles.toolUseIndicator}>
-            <Spinner size="tiny" />
-            <Text size={200}>{getToolUseLabel(message.activeToolUse)}</Text>
-          </div>
-        ) : (
-          <div className={styles.loadingDots} role="status" aria-label="Assistant is thinking">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        )
-      ) : isRetrying ? (
-        <div className={styles.retryingState}>
-          <ArrowSyncRegular className={styles.retryingIcon} />
-          <Text size={200}>
-            Retrying ({message.retryAttempt}/{message.maxRetries})...
-          </Text>
-        </div>
-      ) : (
-        <>
-          <Suspense fallback={<Spinner size="small" />}>
-            <Markdown 
-              content={message.content} 
-              annotations={message.annotations}
-              onCitationClick={handleCitationClick}
-              onDownloadFile={onDownloadFile}
-            />
-          </Suspense>
-          {isStreaming && message.activeToolUse && (
-            <div className={styles.toolUseIndicator} role="status" aria-label={getToolUseLabel(message.activeToolUse)}>
+        }
+      >
+        {showLoadingDots ? (
+          isStreaming && message.activeToolUse ? (
+            <div className={styles.toolUseIndicator}>
               <Spinner size="tiny" />
               <Text size={200}>{getToolUseLabel(message.activeToolUse)}</Text>
             </div>
-          )}
-        </>
-      )}
-    </CopilotMessage>
+          ) : (
+            <div className={styles.loadingDots} role="status" aria-label="Assistant is thinking">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          )
+        ) : isRetrying ? (
+          <div className={styles.retryingState}>
+            <ArrowSyncRegular className={styles.retryingIcon} />
+            <Text size={200}>
+              Retrying ({message.retryAttempt}/{message.maxRetries})...
+            </Text>
+          </div>
+        ) : (
+          <>
+            <Suspense fallback={<Spinner size="small" />}>
+              <Markdown 
+                content={message.content} 
+                annotations={message.annotations}
+                onCitationClick={handleCitationClick}
+                onDownloadFile={onDownloadFile}
+              />
+            </Suspense>
+            {isStreaming && message.activeToolUse && (
+              <div className={styles.toolUseIndicator} role="status" aria-label={getToolUseLabel(message.activeToolUse)}>
+                <Spinner size="tiny" />
+                <Text size={200}>{getToolUseLabel(message.activeToolUse)}</Text>
+              </div>
+            )}
+          </>
+        )}
+      </CopilotMessage>
+    </div>
   );
 }
 

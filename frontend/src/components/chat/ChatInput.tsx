@@ -356,18 +356,20 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               </span>
               <span className={styles.inputHint}>Enterprise-ready answers</span>
             </div>
-            <ChatInputFluent
-              aria-label="Chat Input"
-              aria-describedby={showCounter ? charCounterId : undefined}
-              charactersRemainingMessage={() => ``}
-              disabled={disabled}
-              history={true}
-              onChange={(_, data) => setInputText(data.value)}
-              onSubmit={handleSubmit}
-              placeholderValue={placeholder}
-            >
-              <ImperativeControlPlugin ref={controlRef} />
-            </ChatInputFluent>
+            <div className={styles.textareaShell}>
+              <ChatInputFluent
+                aria-label="Chat Input"
+                aria-describedby={showCounter ? charCounterId : undefined}
+                charactersRemainingMessage={() => ``}
+                disabled={disabled}
+                history={true}
+                onChange={(_, data) => setInputText(data.value)}
+                onSubmit={handleSubmit}
+                placeholderValue={placeholder}
+              >
+                <ImperativeControlPlugin ref={controlRef} />
+              </ChatInputFluent>
+            </div>
             {showCounter && (
               <div className={counterStyles.container} id={charCounterId}>
                 <Text className={`${counterStyles.text} ${getCounterStyle()}`}>
